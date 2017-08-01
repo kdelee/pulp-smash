@@ -9,22 +9,22 @@ from pulp_smash.constants import (
 
 from pulp_smash.tests.rpm.api_v2.utils import (
     gen_distributor as gen_rpm_distributor,
-    gen_repo as gen_rpm_repo
+    gen_repo as gen_rpm_repo,
 )
 
 from pulp_smash.tests.python.api_v2.utils import (
     gen_repo as gen_python_repo,
-    gen_distributor as gen_python_distributor
+    gen_distributor as gen_python_distributor,
 )
 
 from pulp_smash.tests.puppet.api_v2.utils import (
     gen_repo as gen_puppet_repo,
-    gen_distributor as gen_puppet_distributor
+    gen_distributor as gen_puppet_distributor,
 )
 
 from pulp_smash.tests.docker.api_v2.utils import (
     gen_repo as gen_docker_repo,
-    gen_distributor as gen_docker_distributor
+    gen_distributor as gen_docker_distributor,
 )
 
 def clean_repo(id):
@@ -39,3 +39,7 @@ def clean_repo(id):
         if urljoin(REPOSITORY_PATH, id) in repo['_href']:
             client.delete(repo['_href'])
             client.delete(ORPHANS_PATH)
+
+def download_rpm(repo_name, rpm_name):
+    download_path = '/pulp/repos/{}/Packages/{}/{}'.format(repo_name, rpm_name[0], rpm_name)
+    return api.Client(config.get_config()).get(download_path)

@@ -6,14 +6,21 @@ from urllib.parse import urljoin
 import unittest
 
 from pulp_smash import api, utils, config
-from pulp_smash.constants import REPOSITORY_PATH
-
+from pulp_smash.constants import (
+    REPOSITORY_PATH,
+    RPM,
+)
 from pulp_migrate.constants import (
     RPM_REPO,
     PYTHON_REPO,
     PUPPET_REPO,
     DOCKER_V1_REPO,
     DOCKER_V2_REPO,
+)
+
+from pulp_migrate.utils import (
+    download_rpm,
+    gen_rpm_distributor
 )
 
 class BaseRestoreTestCase(unittest.TestCase):
@@ -43,6 +50,7 @@ class TestRPMRepo(BaseRestoreTestCase):
         sync_report = utils.sync_repo(self.cfg, repo)
         api.poll_spawned_tasks(self.cfg, sync_report.json())
         units = utils.search_units(self.cfg, repo)
+        download_rpm(RPM_REPO, RPM)
 
 
 class TestPythonRepo(BaseRestoreTestCase):
