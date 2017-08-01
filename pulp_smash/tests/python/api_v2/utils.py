@@ -18,4 +18,9 @@ def gen_distributor():
     return {
         'distributor_id': utils.uuid4(),
         'distributor_type_id': 'python_distributor',
+        'distributor_config': {
+            'http': True,
+            'https': True,
+            'relative_url': utils.uuid4() + '/',
+        }
     }

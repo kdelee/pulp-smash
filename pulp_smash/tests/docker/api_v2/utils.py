@@ -10,3 +10,15 @@ def gen_repo():
         'importer_type_id': 'docker_importer',
         'notes': {'_repo-type': 'docker-repo'},
     }
+
+def gen_distributor():
+    """Return a semi-random dict for use in creating a docker distributor."""
+    return {
+        'auto_publish': False,
+        'distributor_id': utils.uuid4(),
+        'distributor_type_id': 'docker_distributor_web',
+        'distributor_config': {
+            'http': True,
+            'https': True,
+        },
+    }

@@ -11,7 +11,11 @@ from packaging.version import Version
 
 from pulp_smash import api, config, utils
 from pulp_smash.constants import REPOSITORY_PATH
-from pulp_smash.tests.docker.api_v2.utils import gen_repo
+from pulp_smash.tests.docker.api_v2.utils import (
+    gen_repo,
+    gen_distributor,
+)
+
 from pulp_smash.tests.docker.utils import set_up_module
 
 
@@ -20,19 +24,6 @@ def setUpModule():  # pylint:disable=invalid-name
     set_up_module()
     if config.get_config().version < Version('2.8'):
         raise unittest.SkipTest('These tests require at least Pulp 2.8.')
-
-
-def _gen_distributor():
-    """Return a semi-random dict for use in creating a docker distributor."""
-    return {
-        'auto_publish': False,
-        'distributor_id': utils.uuid4(),
-        'distributor_type_id': 'docker_distributor_web',
-        'distributor_config': {
-            'http': True,
-            'https': True,
-        },
-    }
 
 
 class CrudTestCase(utils.BaseAPICrudTestCase):
@@ -85,7 +76,7 @@ class UpdateTestCase(utils.BaseAPITestCase):
         cls.resources.add(repo['_href'])
         cls.responses['add distributor'] = client.post(
             urljoin(repo['_href'], 'distributors/'),
-            _gen_distributor(),
+            gen_distributor(),
         )
         distributor = cls.responses['add distributor'].json()
 
