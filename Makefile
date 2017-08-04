@@ -46,7 +46,13 @@ lint-pylint:
 		pulp_smash/exceptions.py \
 		pulp_smash/pulp_smash_cli.py \
 		pulp_smash/selectors.py \
-		pulp_smash/utils.py
+		pulp_smash/utils.py \
+		pulp_migrate/constants.py \
+		pulp_migrate/populate.py \
+		pulp_migrate/test-restore.py \
+		pulp_migrate/utils.py \
+		pulp_migrate/clean.py
+
 	pylint -j $(CPU_COUNT) --reports=n --disable=I,duplicate-code pulp_smash/tests/
 
 lint: lint-flake8 lint-pylint

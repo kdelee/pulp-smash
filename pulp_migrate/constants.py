@@ -1,3 +1,4 @@
+"""Shared constants for pulp_migrate module."""
 RPM_REPO = 'rpm-signed'
 PYTHON_REPO = 'pypi'
 PUPPET_REPO = 'puppetforge'

@@ -11,6 +11,7 @@ def gen_repo():
         'notes': {'_repo-type': 'docker-repo'},
     }
 
+
 def gen_distributor():
     """Return a semi-random dict for use in creating a docker distributor."""
     return {
